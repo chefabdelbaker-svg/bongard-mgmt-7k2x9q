@@ -1,0 +1,61 @@
+/* RTL généré automatiquement (ar, ur) */
+html[dir=rtl] .skip{left:auto;right:0}
+html[dir=rtl] .skip:focus{left:auto;right:8px}
+html[dir=rtl] header.top .logo span{border-left:0 none;padding-left:0;border-right:1px solid #555;padding-right:14px}
+html[dir=rtl] .results{left:auto;right:auto;right:0;left:0}
+html[dir=rtl] .side{border-right:0 none;border-left:1px solid var(--line)}
+html[dir=rtl] .side .dot{margin-left:0;margin-right:auto}
+html[dir=rtl] .gal figcaption{text-align:right}
+html[dir=rtl] .gal .k{left:auto;right:8px}
+html[dir=rtl] section.sec>h2{padding-left:0;border-left:0 none;padding-right:14px;border-right:4px solid var(--red)}
+html[dir=rtl] .t th{text-align:right}
+html[dir=rtl] .callout,html[dir=rtl] .ex{border-left:0 none;border-right:4px solid var(--red);border-radius:10px 0 0 10px}
+html[dir=rtl] ul.check{padding-left:0;padding-right:0}
+html[dir=rtl] ul.check li{padding-left:0;padding-right:24px}
+html[dir=rtl] ul.check li:before{left:auto;right:2px}
+html[dir=rtl] .timeline div{border-left:0 none;padding-left:0;border-right:3px solid var(--red);padding-right:12px}
+html[dir=rtl] .badge{margin-right:0;margin-left:8px}
+html[dir=rtl] .chain a{border-right:0 none;border-left:1px solid var(--line)}
+html[dir=rtl] .chain a:after{right:auto;left:-9px}
+html[dir=rtl] .lb .pv{left:auto;right:12px}
+html[dir=rtl] .lb .nx{right:auto;left:12px}
+html[dir=rtl] .lb .x{right:auto;left:16px}
+@media (max-width:860px){html[dir=rtl] .side{left:auto;right:0;transform:translateX(105%)}}
+html[dir=rtl] .mt .mi.plain:after{left:auto;right:18px}
+html[dir=rtl] .warn{border-left:0 none;border-right:4px solid #c9a24a;border-radius:8px 0 0 8px}
+html[dir=rtl] .about ul{padding-left:0;padding-right:20px}
+html[dir=rtl] .cv-ph{right:auto;left:0}
+html[dir=rtl] .lang{margin-right:0;margin-left:12px}
+html[dir=rtl] .oven .menu-grid{border-left:0 none;border-right:0 none;border-right:3px solid #3f4349;border-left:3px solid #3f4349}
+html[dir=rtl] .oven .mt b{padding:16px 6px 2px 56px}
+html[dir=rtl] .oven .mt small{padding:0 6px 16px 56px}
+html[dir=rtl] .oven .mt:after{right:auto;left:16px}
+@media (max-width:640px){html[dir=rtl] .oven .mt b{padding:12px 14px 2px 44px}html[dir=rtl] .oven .mt small{padding:0 14px 14px 44px}}
+html[dir=rtl] .pf{text-align:right}
+html[dir=rtl] .vt{text-align:right}
+html[dir=rtl] .cmp tbody th{text-align:right}
+html[dir=rtl] .prep .q label{margin-right:0;margin-left:12px}
+html[dir=rtl] .suivi td:first-child,html[dir=rtl] .suivi th:first-child{text-align:right}
+html[dir=rtl] .mtabs a.sep{margin-left:0;margin-right:14px}
+@media(max-width:640px){html[dir=rtl] .mtabs a.sep{margin-left:0;margin-right:0}}
+html[dir=rtl] .quick{border-left:0 none;border-right:5px solid var(--red)}
+@media(max-width:860px){html[dir=rtl] .bnav{left:auto;right:auto;right:0;left:0}html[dir=rtl] .fold>h2{padding-right:0;padding-left:28px}html[dir=rtl] .fold>h2::after{right:auto;left:2px}html[dir=rtl] .oven .mt b{padding:0 0!important 0 32px}html[dir=rtl] .oven .mt small{padding:0 0!important 0 32px}}
+@media(max-width:640px){html[dir=rtl] header.top .search input:focus{left:auto;right:auto;right:8px;left:8px}}
+html[dir=rtl] body.is-landing header.top{left:auto;right:auto;right:0;left:0}
+html[dir=rtl] .landing .profiles.big{text-align:right}
+html[dir=rtl] .landing .lexi{text-align:right}
+html[dir=rtl] .landing .lexi li{border-left:0 none;border-right:4px solid var(--red);padding:6px 14px 6px 0}
+html[dir=rtl] .acc>h2{padding:16px 18px 16px 46px}
+html[dir=rtl] .acc>h2::after{right:auto;left:16px}
+html[dir=rtl] .lx{border-left:0 none;border-right:4px solid var(--red)}
+html[dir=rtl] .totop{right:auto;left:14px}
+@media(max-width:860px){html[dir=rtl] .go-pick{left:auto;right:auto;right:16px;left:16px}}
+@media(max-width:860px){html[dir=rtl] .lang{margin-right:0;margin-left:4px}}
+@media(max-width:480px){html[dir=rtl] .lang{margin-right:0;margin-left:0}}
+html[dir=rtl] .chain a:after{content:"‹"}
+html[dir=rtl] body{font-family:"Noto Naskh Arabic","Geeza Pro","Segoe UI",Tahoma,Arial,sans-serif}
+html[lang=ur] body{font-family:"Noto Nastaliq Urdu","Jameel Noori Nastaleeq","Geeza Pro","Segoe UI",Tahoma,sans-serif;line-height:1.9}
+html[dir=rtl] h1,html[dir=rtl] h2,html[dir=rtl] h3,html[dir=rtl] button,html[dir=rtl] .bnav,html[dir=rtl] .btn,html[dir=rtl] .tag{font-family:"Noto Sans Arabic","Geeza Pro","Segoe UI",Tahoma,Arial,sans-serif}
+html[dir=rtl] .landing,html[dir=rtl] main{letter-spacing:0}
+html[dir=rtl] *{letter-spacing:0!important}
+html[dir=rtl] input[type=search],html[dir=rtl] input{text-align:right}

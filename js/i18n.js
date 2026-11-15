@@ -1,10 +1,10 @@
-/* Traduction à l'affichage : le contenu source reste en français ; EN et HI sont des dictionnaires (data/i18n-en.js, data/i18n-hi.js). */
+/* Traduction à l'affichage : le contenu source reste en français ; EN, HI, AR et UR sont des dictionnaires (data/i18n-*.js). */
 (function () {
-  var LANGS = [["fr", "FR"], ["en", "EN"], ["hi", "हिन्दी"]];
+  var LANGS = [["fr", "FR"], ["en", "EN"], ["hi", "हिन्दी"], ["ar", "العربية"], ["ur", "اردو"]];
   var lang = "fr"; try { lang = localStorage.getItem("bgac.lang") || "fr"; } catch (e) {}
-  var m = location.search.match(/[?&]lang=(fr|en|hi)/); if (m) { lang = m[1]; try { localStorage.setItem("bgac.lang", lang); } catch (e) {} }
+  var m = location.search.match(/[?&]lang=(fr|en|hi|ar|ur)/); if (m) { lang = m[1]; try { localStorage.setItem("bgac.lang", lang); } catch (e) {} }
   var D = (window.BG_I18N && window.BG_I18N[lang]) || null; if (!D) lang = "fr";
-  document.documentElement.lang = lang;
+  document.documentElement.lang = lang; if (lang === "ar" || lang === "ur") document.documentElement.dir = "rtl";
   var INL = { B: 1, STRONG: 1, EM: 1, I: 1, BR: 1, SUP: 1, SUB: 1, CODE: 1, MARK: 1, ABBR: 1, U: 1 };
   function nz(s) { return s.replace(/\s+/g, " ").trim(); }
   function isLeaf(el) { for (var i = 0; i < el.children.length; i++) { var c = el.children[i]; if (!INL[c.tagName] || !isLeaf(c)) return false; } return true; }

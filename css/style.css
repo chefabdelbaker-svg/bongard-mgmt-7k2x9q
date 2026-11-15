@@ -5,7 +5,7 @@ h1,h2,h3,h4,nav,button,.t,.badge,input,.ui{font-family:var(--sans)}
 a{color:var(--red2)}a:hover{color:var(--red)}
 img{max-width:100%}
 :focus-visible{outline:3px solid #1b8fd0;outline-offset:2px;border-radius:4px}
-.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:#fff;padding:8px 12px;z-index:99}
+.skip{position:absolute;left:0;top:-999px}.skip:focus{left:8px;top:8px;background:#fff;padding:8px 12px;z-index:99}
 header.top{background:#0c0d0f var(--tex) center/cover;color:#fff;position:sticky;top:0;z-index:20;display:flex;gap:18px;align-items:center;padding:10px 22px;border-bottom:3px solid var(--red)}
 header.top .logo{display:flex;align-items:center;gap:14px;text-decoration:none;color:#fff}
 header.top .logo img{height:34px;width:auto;display:block}
@@ -337,3 +337,6 @@ body.is-landing header.top .lang button{background:rgba(0,0,0,.45)}
 .acc>h2{margin:0!important}html[lang=hi] main,html[lang=hi] .tw,html[lang=hi] td,html[lang=hi] th,html[lang=hi] .hub span{overflow-wrap:anywhere}
 @media(max-width:860px){.lang{margin-right:4px}.lang button{min-width:38px;padding:6px 8px}.bnav a{min-width:0;flex:1 1 0;overflow:hidden;white-space:nowrap}header.top{gap:8px}}
 .acc{scroll-margin-top:76px}
+
+@media(max-width:480px){header.top{padding:8px 10px;gap:6px}header.top .logo img{height:26px}header.top .logo span{display:none}.lang{margin-right:0}.lang button{min-width:30px;min-height:36px;padding:5px 5px;font-size:11px}.lang button[lang=ur],.lang button[lang=ar]{font-size:12px}}
+@media(max-width:480px){header.top .logo{min-width:0;flex:0 1 auto}header.top .logo img{height:auto;max-height:26px;max-width:112px;object-fit:contain}.lang{gap:1px}.lang button{min-width:28px;padding:5px 4px}header.top .search{width:40px}header.top .search input{width:40px}}
