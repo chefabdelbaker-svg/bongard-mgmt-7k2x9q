@@ -59,3 +59,4 @@ html[dir=rtl] h1,html[dir=rtl] h2,html[dir=rtl] h3,html[dir=rtl] button,html[dir
 html[dir=rtl] .landing,html[dir=rtl] main{letter-spacing:0}
 html[dir=rtl] *{letter-spacing:0!important}
 html[dir=rtl] input[type=search],html[dir=rtl] input{text-align:right}
+html[dir=rtl] .welcome.sm .kick a::before{content:"→ "}

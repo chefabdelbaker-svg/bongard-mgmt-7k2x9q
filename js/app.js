@@ -350,7 +350,7 @@
 
   /* ---------- routeur ---------- */
   function route() {
-    var hash = location.hash || "#/", parts = hash.replace(/^#\/?/, "").split("/"), name = parts[0] || "home", h = "", curId = null;
+    var hash = location.hash || "#/"; try { if ((hash === "#/" || hash === "#") && !sessionStorage.getItem("bgac.entered")) hash = "#/profil"; } catch (e) {} var parts = hash.replace(/^#\/?/, "").split("/"), name = parts[0] || "home", h = "", curId = null;
     if (name === "m" && byId[parts[1]]) { curId = parts[1]; cur = byId[curId]; h = moduleView(cur); state.last = curId; save(); document.title = cur.title + " — Académie Bongard"; }
     else if (name === "parcours") { h = parcours(); name = "parcours"; }
     else if (name === "revision") { h = revision(parts[1] && byId[parts[1]] ? parts[1] : null); }
@@ -405,7 +405,7 @@
     else if (a === "view") { state.view = b.getAttribute("data-v"); save(); route(); }
     else if (a === "gopick") { var pk = document.getElementById("pickhere"); if (pk) pk.scrollIntoView({ behavior: "smooth", block: "start" }); }
     else if (a === "aopen") { e.preventDefault(); var tg = document.getElementById("a-" + b.getAttribute("data-mod")); if (tg) { tg.hidden = false; tg.classList.remove("shut"); tg.scrollIntoView({ behavior: "smooth", block: "start" }); } }
-    else if (a === "profile") { var pv = b.getAttribute("data-v"); state.profile = pv; state.view = pv === "vendeur" ? "vendre" : "tout"; save(); if (location.hash.indexOf("#/profil") === 0 || !location.hash || location.hash === "#/") { if (location.hash === "#/") route(); else location.hash = "#/"; } else route(); }
+    else if (a === "profile") { var pv = b.getAttribute("data-v"); try { sessionStorage.setItem("bgac.entered", "1"); } catch (e) {} state.profile = pv; state.view = pv === "vendeur" ? "vendre" : "tout"; save(); if (location.hash.indexOf("#/profil") === 0 || !location.hash || location.hash === "#/") { if (location.hash === "#/") route(); else location.hash = "#/"; } else route(); }
     else if (a === "print") window.print();
     else if (a === "flip") { fc.flip = !fc.flip; rerenderRev(); }
     else if (a === "next") { fc.i = (fc.i + 1) % fc.deck.length; fc.flip = false; rerenderRev(); }

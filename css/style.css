@@ -340,3 +340,5 @@ body.is-landing header.top .lang button{background:rgba(0,0,0,.45)}
 
 @media(max-width:480px){header.top{padding:8px 10px;gap:6px}header.top .logo img{height:26px}header.top .logo span{display:none}.lang{margin-right:0}.lang button{min-width:30px;min-height:36px;padding:5px 5px;font-size:11px}.lang button[lang=ur],.lang button[lang=ar]{font-size:12px}}
 @media(max-width:480px){header.top .logo{min-width:0;flex:0 1 auto}header.top .logo img{height:auto;max-height:26px;max-width:112px;object-fit:contain}.lang{gap:1px}.lang button{min-width:28px;padding:5px 4px}header.top .search{width:40px}header.top .search input{width:40px}}
+
+.welcome.sm .kick a::before{content:"← "}
