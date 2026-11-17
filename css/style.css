@@ -342,3 +342,6 @@ body.is-landing header.top .lang button{background:rgba(0,0,0,.45)}
 @media(max-width:480px){header.top .logo{min-width:0;flex:0 1 auto}header.top .logo img{height:auto;max-height:26px;max-width:112px;object-fit:contain}.lang{gap:1px}.lang button{min-width:28px;padding:5px 4px}header.top .search{width:40px}header.top .search input{width:40px}}
 
 .welcome.sm .kick a::before{content:"← "}
+
+.start{background:#0c0d0f;color:#fff;border-radius:var(--r);padding:20px 22px;margin:0 0 16px;border-left:5px solid var(--red)}.start b{font:800 20px var(--sans);display:block}.start p{margin:6px 0 14px;color:#ddd}.start .sn{margin-left:12px;font:800 14px var(--sans);color:#f08a84}
+.day .prog{float:right;font:700 12px var(--sans);color:var(--ink2);background:#f1f1f1;border-radius:12px;padding:3px 9px}.day.now{border-color:var(--red);box-shadow:0 0 0 2px rgba(212,42,32,.18)}.day.done .d{color:#2e8b57}.day .dm{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.day .dgo{margin-top:6px}
