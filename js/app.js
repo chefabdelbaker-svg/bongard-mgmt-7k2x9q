@@ -223,7 +223,7 @@
   }
 
   var SELL = ["quoi", "users", "args", "benef", "diff", "disc", "obj", "syn"];
-  function stT(t, vw) { return vw === "tout" ? t : t.replace(/^\d+ · /, ""); }
+  function stT(t, vw) { if (vw === "tout") return t; return BGI.trText(t).replace(/^\d+ · /, ""); }
   function moduleView(m) {
     var h = phero(m) + '<div class="wrap">';
     h += '<div class="toolbar"><a class="btn pri" href="#/revision/' + m.id + '">Réviser ce module</a><button class="btn" data-act="read">' + (state.read[m.id] ? "✓ Lu — annuler" : "Marquer comme lu") + '</button>' + (DL.fiche ? '<a class="btn" href="docs/fiches/' + m.id + '.pdf" download>⬇ Fiche PDF</a>' : "") + '<details class="more"><summary class="btn">Plus d\'actions</summary><div class="moreb"><button class="btn" data-act="fav">' + (state.fav[m.id] ? "★ Retirer des favoris" : "☆ Ajouter aux favoris") + '</button><button class="btn" data-act="print">Imprimer / PDF</button>' + (DL.original && DL.originals && DL.originals[m.id] ? '<a class="btn" href="' + DL.originals[m.id][0] + '" download>⬇ Argumentaire d\'origine</a>' : "") + "</div></details></div>";
