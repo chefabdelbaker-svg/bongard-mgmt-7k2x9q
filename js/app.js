@@ -54,6 +54,7 @@
   document.addEventListener("click", function (e) { if (!e.target.closest(".search")) sRes.classList.remove("on"); });
   sIn.addEventListener("keydown", function (e) { if (e.key === "Escape") { sRes.classList.remove("on"); sIn.blur(); } });
   sRes.addEventListener("click", function () { sRes.classList.remove("on"); sIn.value = ""; });
+  document.addEventListener("change", function (e) { if (e.target && e.target.id === "tmod") tst.mod = e.target.value; });
   document.addEventListener("keydown", function (e) {
     if ((e.key === "Enter" || e.key === " ") && e.target.matches && e.target.matches("section.fold > h2")) { e.preventDefault(); e.target.parentNode.classList.toggle("shut"); } if (e.key === "/" && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) { e.preventDefault(); sIn.focus(); } });
 
@@ -61,7 +62,7 @@
   function renderSide(curId, curRoute) {
     var fams = []; M.forEach(function (m) { if (fams.indexOf(m.family) < 0) fams.push(m.family); });
     function L(r, t, k) { return '<a href="#/' + r + '"' + (curRoute === k ? ' class="cur"' : "") + ">" + t + "</a>"; }
-    var h = L("", "Accueil", "cover") + L("parcours", "Par où commencer ?", "parcours") + L("equipements", "Les équipements", "equipements") + "<h2>Outils du rendez-vous</h2>" + L("preparer", "Je prépare ma rencontre", "preparer") + L("differences", "Ce qui fait la différence", "differences") + L("comparer", "Comparer", "comparer") + L("objections", "Questions et inquiétudes", "objections") + L("chiffres", "Chiffres clés", "chiffres") + "<h2>Apprendre</h2>" + L("esprit", "L'esprit Bongard", "esprit") + L("lexique", "Le lexique Bongard", "lexique")  + L("revision", "Cartes de révision", "revision") + L("glossaire", "Glossaire", "glossaire") + "<h2>Ressources</h2>" + L("favoris", "Mes favoris", "favoris") + L("telechargements", "Téléchargements", "telechargements") + L("sources", "Sources et mises à jour", "sources") + L("profil", "Changer de profil", "profil");
+    var h = L("", "Accueil", "cover") + L("parcours", "Par où commencer ?", "parcours") + L("test", "Tester mes connaissances", "revision") + L("equipements", "Les équipements", "equipements") + "<h2>Outils du rendez-vous</h2>" + L("preparer", "Je prépare ma rencontre", "preparer") + L("differences", "Ce qui fait la différence", "differences") + L("comparer", "Comparer", "comparer") + L("objections", "Questions et inquiétudes", "objections") + L("chiffres", "Chiffres clés", "chiffres") + "<h2>Apprendre</h2>" + L("esprit", "L'esprit Bongard", "esprit") + L("lexique", "Le lexique Bongard", "lexique")  + L("revision", "Cartes de révision", "revision") + L("glossaire", "Glossaire", "glossaire") + "<h2>Ressources</h2>" + L("favoris", "Mes favoris", "favoris") + L("telechargements", "Téléchargements", "telechargements") + L("sources", "Sources et mises à jour", "sources") + L("profil", "Changer de profil", "profil");
     if (window.BGM) h += "<h2>Management</h2>" + L("management", "Espace management", "management");
     fams.forEach(function (f) {
       h += "<h2>" + esc(f) + "</h2>";
@@ -139,6 +140,7 @@
       ["m/marque", "Découvrir la marque", "Histoire de Bongard depuis 1922, valeurs et chiffres. À lire en premier.", "assets/brand/production-site.jpg"],
       ["equipements", "Les équipements", nm + " fiches machine : photos, fonctionnement, atouts, inquiétudes du client et présentation d'une minute.", "assets/brand/gamme-panorama.jpg"],
       ["parcours", "Parcours de 7 jours", "Un plan jour par jour pour tout maîtriser en une semaine, avec l'objectif de chaque journée.", "assets/brand/baker-peel.jpg"],
+      ["test", "Tester mes connaissances", "Des questions comme en rendez-vous : vous répondez avec vos mots, puis vous comparez avec la réponse.", "assets/brand/menu-revision.webp"],
       ["revision", "Cartes de révision", "Des questions et réponses pour vous tester, module par module.", "assets/brand/menu-revision.webp"],
       ["glossaire", "Glossaire", "Les termes du métier expliqués en langage simple.", "assets/brand/menu-glossaire.webp"],
       ["telechargements", "Téléchargements", "Les fiches PDF à imprimer ou à emporter en rendez-vous.", "assets/brand/menu-telechargements.webp"],
@@ -172,7 +174,7 @@
     return '<h1 class="pg">' + title + '</h1><p class="tag">' + intro + '</p><div class="hubgrid">' + items.map(function (i) { return '<a class="hub" href="#/' + i[0] + '"><b>' + i[1] + "</b><span>" + i[2] + "</span></a>"; }).join("") + "</div>";
   }
   function hubOutils() { return hub("Outils du rendez-vous", "Pour préparer un rendez-vous, répondre à un client et comparer.", [["preparer", "Je prépare ma rencontre", "Une fiche d'une page par équipement : questions à poser, atouts, inquiétudes du client."], ["differences", "Ce qui fait la différence", "Les atouts de chaque équipement, et comment comparer loyalement."], ["comparer", "Comparer", "Deux ou trois équipements côte à côte."], ["objections", "Questions et inquiétudes", "Les questions et inquiétudes rencontrées sur le terrain, avec la réponse documentée."], ["chiffres", "Chiffres clés", "Les repères à citer, avec leurs conditions."]]); }
-  function hubApprendre() { return hub("Apprendre", "Se former à son rythme, puis se tester.", [["esprit", "L'esprit Bongard", "Notre façon d'accompagner : comprendre, parler simplement, rester à côté."], ["lexique", "Le lexique Bongard", "Les mots que nous employons : ici, on ne vend pas, on accompagne."], ["m/methode", "La méthode commerciale", "Poser les bonnes questions, répondre aux inquiétudes du client, comparer loyalement."], ["m/marque", "Découvrir la marque", "Histoire de Bongard depuis 1922, valeurs et chiffres. À lire en premier."], ["parcours", "Parcours de 7 jours", "Un plan jour par jour pour tout maîtriser en une semaine."], ["revision", "Cartes de révision", "Des questions et réponses pour vous tester, module par module."], ["glossaire", "Glossaire", "Les termes du métier expliqués en langage simple."]]); }
+  function hubApprendre() { return hub("Apprendre", "Se former à son rythme, puis se tester.", [["esprit", "L'esprit Bongard", "Notre façon d'accompagner : comprendre, parler simplement, rester à côté."], ["lexique", "Le lexique Bongard", "Les mots que nous employons : ici, on ne vend pas, on accompagne."], ["m/methode", "La méthode commerciale", "Poser les bonnes questions, répondre aux inquiétudes du client, comparer loyalement."], ["m/marque", "Découvrir la marque", "Histoire de Bongard depuis 1922, valeurs et chiffres. À lire en premier."], ["parcours", "Parcours de 7 jours", "Un plan jour par jour pour tout maîtriser en une semaine."], ["test", "Tester mes connaissances", "Des questions comme en rendez-vous : vous répondez avec vos mots, puis vous comparez avec la réponse."], ["revision", "Cartes de révision", "Des questions et réponses pour vous tester, module par module."], ["glossaire", "Glossaire", "Les termes du métier expliqués en langage simple."]]); }
   function hubPlus() {
     var it = [["favoris", "Mes favoris", "Les fiches que vous avez mises de côté."], ["telechargements", "Téléchargements", "Les fiches PDF à imprimer ou à emporter en rendez-vous."], ["sources", "Sources et mises à jour", "D'où viennent les informations, ce qui doit être vérifié, et les dernières mises à jour."], ["apropos", "À propos de BEME", "Qui nous sommes et à quoi sert ce livret."], ["profil", "Changer de profil", "Commercial, technicien" + (window.BGM ? ", manager / direction" : "") + "."]];
     if (window.BGM) it.unshift(["management", "Espace management", "Évaluation, guide d'animation, quiz flash et suivi. Réservé aux managers."]);
@@ -255,7 +257,7 @@
       var n = d.mods.filter(function (id) { return state.read[id]; }).length, done = n === d.mods.length, cls = "day" + (done ? " done" : d === first ? " now" : "");
       h += '<div class="' + cls + '"><div class="d">J' + d.day + '</div><div><b class="ui">' + esc(d.title) + '</b><span class="prog">' + n + " / " + d.mods.length + "</span><p style=\"margin:4px 0\">" + esc(d.task) + '</p><div class="dm">' + d.mods.map(function (id) { return '<a class="pill" href="#/m/' + id + '">' + (state.read[id] ? "✓ " : "") + esc(byId[id].title) + "</a> "; }).join("") + '</div><a class="btn' + (done ? "" : " pri") + ' dgo" href="#/m/' + nextMod(d) + '">' + (done ? "Revoir le cours" : "Ouvrir le cours") + "</a></div></div>";
     });
-    return h + "</div>";
+    return h + '</div><p style="margin-top:16px"><a class="btn pri" href="#/test">Tester mes connaissances</a></p>';
   }
 
   var fc = { deck: [], i: 0, flip: false, mod: null };
@@ -273,6 +275,40 @@
       '<div class="row"><span class="note">Auto-évaluation (non évaluée par la direction) :</span><button class="btn" data-act="rev" data-v="sure">Je maîtrise</button><button class="btn" data-act="rev" data-v="again">À revoir</button>' + (st ? '<span class="pill">' + (st === "sure" ? "Maîtrisée" : "À revoir") + "</span>" : "") + "</div></div>";
     return h;
   }
+
+  /* ---------- Tester mes connaissances : questions à réponse libre + auto-évaluation ---------- */
+  var tst = { ph: "setup", mod: "", n: 10, deck: [], i: 0, ok: 0, miss: [], shown: false, ans: "" };
+  function bank(modId) {
+    var d = [];
+    M.forEach(function (m) {
+      if (modId && m.id !== modId) return;
+      (m.cards || []).forEach(function (c) { d.push({ mod: m.title, mid: m.id, q: esc(c[0]), a: esc(c[1]), t: "c" }); });
+      (m.sections || []).forEach(function (sx) { if (sx.html.indexOf('class="obj"') < 0) return; var w = document.createElement("div"); w.innerHTML = sx.html; [].slice.call(w.querySelectorAll(".obj")).forEach(function (o) { var b = o.querySelector("b"), p = o.querySelector("p"); if (b && p) d.push({ mod: m.title, mid: m.id, q: b.innerHTML, a: p.innerHTML, t: "o" }); }); });
+    });
+    return d;
+  }
+  function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function testView() {
+    var h = '<h1 class="pg">Tester mes connaissances</h1><p class="tag">Répondez avec vos mots, puis comparez avec la réponse attendue. Personne ne vous note : c\'est pour vous entraîner.</p>';
+    if (tst.ph === "setup") {
+      h += '<div class="tsetup"><label class="tl" for="tmod">Quel sujet ?</label><select id="tmod"><option value="">Tous les sujets</option>' + M.filter(function (m) { return bank(m.id).length; }).map(function (m) { return '<option value="' + m.id + '"' + (m.id === tst.mod ? " selected" : "") + ">" + esc(m.title) + "</option>"; }).join("") + '</select><div class="tl">Combien de questions ?</div><div class="row">' + [[10, "10 questions"], [20, "20 questions"], [0, "Toutes les questions"]].map(function (c) { return '<button class="btn' + (tst.n === c[0] ? " pri" : "") + '" data-act="tn" data-v="' + c[0] + '">' + c[1] + "</button>"; }).join("") + '</div><button class="btn pri big" data-act="tgo">Commencer le test</button></div>';
+    } else if (tst.ph === "ask") {
+      var it = tst.deck[tst.i];
+      h += '<div class="tbar"><i style="width:' + Math.round(tst.i / tst.deck.length * 100) + '%"></i></div><p class="note tc">' + (tst.i + 1) + " / " + tst.deck.length + "</p>";
+      h += '<div class="tq"><small>' + esc(it.mod) + "</small>" + (it.t === "o" ? '<p class="lbl">Un client vous dit :</p><p class="qt">' + it.q + '</p><p class="lbl">Que lui répondez-vous ?</p>' : '<p class="qt">' + it.q + "</p>") + "</div>";
+      if (!tst.shown) h += '<textarea id="tans" rows="4" placeholder="Écrivez votre réponse ici (facultatif)…">' + esc(tst.ans) + '</textarea><button class="btn pri" data-act="tshow">Voir la réponse</button>';
+      else h += '<div class="tfb"><p class="lbl">Votre réponse</p><p class="mine">' + (tst.ans ? esc(tst.ans) : '<span class="none">Vous n\'avez rien écrit.</span>') + '</p><p class="lbl">Réponse attendue</p><p class="exp">' + it.a + '</p><p class="lbl">Avez-vous dit l\'essentiel ?</p><div class="row"><button class="btn pri" data-act="tok">J\'avais juste</button><button class="btn" data-act="tmiss">À revoir</button></div></div>';
+    } else {
+      var n = tst.deck.length, pc = tst.ok / n;
+      h += '<h2>Résultat</h2><p class="score"><b>' + tst.ok + "</b> / " + n + "</p><p>" + (pc >= 0.8 ? "Très bien : vous maîtrisez ce sujet." : pc >= 0.5 ? "Bon début : relisez les points à revoir, puis refaites le test." : "À consolider : relisez le cours, puis refaites le test.") + "</p>";
+      if (tst.miss.length) { h += '<h3>Questions à revoir</h3><ul class="tmiss">' + tst.miss.map(function (x) { return "<li>" + x.q + ' <a href="#/m/' + x.mid + '">' + esc(x.mod) + "</a></li>"; }).join("") + '</ul><div class="row"><button class="btn pri" data-act="trep">Refaire les points à revoir</button><button class="btn" data-act="tnew">Nouveau test</button></div>'; }
+      else h += '<p>Aucune question à revoir : bravo !</p><div class="row"><button class="btn pri" data-act="tnew">Nouveau test</button></div>';
+    }
+    return h;
+  }
+  function rerenderTest() { main.innerHTML = '<div class="wrap">' + testView() + "</div>"; window.scrollTo(0, 0); var t = $("#tans"); if (t) t.focus(); }
+  function tStart(deck) { tst.deck = deck; tst.i = 0; tst.ok = 0; tst.miss = []; tst.shown = false; tst.ans = ""; tst.ph = deck.length ? "ask" : "setup"; }
+  function tRate(ok) { var it = tst.deck[tst.i]; if (ok) tst.ok++; else tst.miss.push(it); tst.i++; tst.shown = false; tst.ans = ""; if (tst.i >= tst.deck.length) tst.ph = "end"; }
 
   function glossaire() {
     return '<h1 class="pg">Glossaire</h1><p class="tag">Les termes essentiels, en langage simple.</p><div class="tw"><table class="t"><thead><tr><th>Terme</th><th>Définition</th></tr></thead><tbody>' + BG.glossary.map(function (g) { return "<tr><td><b>" + esc(g[0]) + "</b></td><td>" + esc(g[1]) + "</td></tr>"; }).join("") + "</tbody></table></div>";
@@ -359,6 +395,7 @@
     var hash = location.hash || "#/"; try { if ((hash === "#/" || hash === "#") && !sessionStorage.getItem("bgac.entered")) hash = "#/profil"; } catch (e) {} var parts = hash.replace(/^#\/?/, "").split("/"), name = parts[0] || "home", h = "", curId = null;
     if (name === "m" && byId[parts[1]]) { curId = parts[1]; cur = byId[curId]; h = moduleView(cur); state.last = curId; save(); document.title = cur.title + " — Académie Bongard"; }
     else if (name === "parcours") { h = parcours(); name = "parcours"; }
+    else if (name === "test") { if (tst.ph === "end") tst.ph = "setup"; h = testView(); }
     else if (name === "revision") { h = revision(parts[1] && byId[parts[1]] ? parts[1] : null); }
     else if (name === "glossaire") h = glossaire();
     else if (name === "favoris") h = favoris();
@@ -416,6 +453,12 @@
     else if (a === "flip") { fc.flip = !fc.flip; rerenderRev(); }
     else if (a === "next") { fc.i = (fc.i + 1) % fc.deck.length; fc.flip = false; rerenderRev(); }
     else if (a === "prev") { fc.i = (fc.i - 1 + fc.deck.length) % fc.deck.length; fc.flip = false; rerenderRev(); }
+    else if (a === "tn") { tst.n = +b.getAttribute("data-v"); rerenderTest(); }
+    else if (a === "tgo") { var dk = shuffle(bank(tst.mod)); tStart(tst.n ? dk.slice(0, tst.n) : dk); rerenderTest(); }
+    else if (a === "tshow") { var ta = $("#tans"); tst.ans = ta ? ta.value.trim() : ""; tst.shown = true; rerenderTest(); }
+    else if (a === "tok" || a === "tmiss") { tRate(a === "tok"); rerenderTest(); }
+    else if (a === "trep") { tStart(shuffle(tst.miss)); rerenderTest(); }
+    else if (a === "tnew") { tst.ph = "setup"; rerenderTest(); }
     else if (a === "rev") { state.rev[fc.deck[fc.i].k] = b.getAttribute("data-v"); save(); rerenderRev(); }
   });
   document.addEventListener("keydown", function (e) {
