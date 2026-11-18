@@ -278,12 +278,13 @@
 
   /* ---------- Tester mes connaissances : questions à réponse libre + auto-évaluation ---------- */
   var tst = { ph: "setup", mod: "", n: 10, deck: [], i: 0, ok: 0, miss: [], shown: false, ans: "" };
+  var QFIX = {"PANEODUST": "À quoi sert le PANEODUST ?", "24 niveaux": "HERA : combien de niveaux, et que gagne-t-on par rapport à l'ancienne gamme ?", "Tourage : définition courte": "Qu'est-ce que le tourage ?", "Deux types de bouches": "SOLEO EVO : quels sont les deux types de bouches ?", "Étage « High » ou « Low »": "SOLEO EVO : quelle hauteur utile pour un étage « Low » et pour un étage « High » ?", "Porte HERA : trois atouts": "Quels sont les trois atouts de la porte de la HERA ?", "Réflexe face à « trop lent »": "Un client dit que sa production est « trop lente » : quel est votre premier réflexe ?", "Buée SENSITIV'2 vs ERGOCOM": "SOLEO EVO : quelle différence entre la buée SENSITIV'2 et la buée ERGOCOM ?", "Capacité utile vs capacité de production": "Di-vAin : quelle différence entre capacité utile et capacité de production ?", "EL ou TOUCH ?": "Di-vAin : quelle différence entre la commande EL et la commande TOUCH ?", "Comparer loyalement, c'est…": "Face à un concurrent, que veut dire « comparer loyalement » ?", "Les six étapes": "Quelles sont les six étapes de la méthode commerciale ?", "Stockage au froid vs fermentation": "Quelle différence entre un stockage au froid et une fermentation pilotée ?", "Rôle du dormillon": "HERA : à quoi sert le dormillon ?", "Pourquoi l'humidité ?": "HERA : pourquoi piloter l'humidité pendant la fermentation ?", "Quatre fonctions d'une BFC": "Quelles sont les quatre fonctions d'une BFC ?", "Ressuage : définition": "Qu'est-ce que le ressuage du pain après cuisson ?", "Levain liquide : le principe": "Di-vAin : quel est le principe du levain liquide ?", "Que ajoute la lettre « C » dans MANU-SC et AUTO-SC ?": "Qu'ajoute la lettre « C » dans MANU-SC et AUTO-SC ?"};
   function bank(modId) {
     var d = [];
     M.forEach(function (m) {
       if (modId && m.id !== modId) return;
-      (m.cards || []).forEach(function (c) { d.push({ mod: m.title, mid: m.id, q: esc(c[0]), a: esc(c[1]), t: "c" }); });
-      (m.sections || []).forEach(function (sx) { if (sx.html.indexOf('class="obj"') < 0) return; var w = document.createElement("div"); w.innerHTML = sx.html; [].slice.call(w.querySelectorAll(".obj")).forEach(function (o) { var b = o.querySelector("b"), p = o.querySelector("p"); if (b && p) d.push({ mod: m.title, mid: m.id, q: b.innerHTML, a: p.innerHTML, t: "o" }); }); });
+      (m.cards || []).forEach(function (c) { d.push({ mod: m.title, mid: m.id, q: esc(QFIX[c[0]] || c[0]), a: esc(c[1]), t: "c" }); });
+      (m.sections || []).forEach(function (sx) { if (sx.html.indexOf('class="obj"') < 0) return; var w = document.createElement("div"); w.innerHTML = sx.html; [].slice.call(w.querySelectorAll(".obj")).forEach(function (o) { var b = o.querySelector("b"), p = o.querySelector("p"); if (b && p && b.textContent.indexOf("«") === 0) d.push({ mod: m.title, mid: m.id, q: b.innerHTML, a: p.innerHTML, t: "o" }); }); });
     });
     return d;
   }
@@ -295,20 +296,23 @@
     } else if (tst.ph === "ask") {
       var it = tst.deck[tst.i];
       h += '<div class="tbar"><i style="width:' + Math.round(tst.i / tst.deck.length * 100) + '%"></i></div><p class="note tc">' + (tst.i + 1) + " / " + tst.deck.length + "</p>";
-      h += '<div class="tq"><small>' + esc(it.mod) + "</small>" + (it.t === "o" ? '<p class="lbl">Un client vous dit :</p><p class="qt">' + it.q + '</p><p class="lbl">Que lui répondez-vous ?</p>' : '<p class="qt">' + it.q + "</p>") + "</div>";
+      h += '<div class="tq"><p class="sj"><span>Sujet :</span> <b>' + esc(it.mod) + "</b></p>" + (it.t === "o" ? '<p class="lbl">Un client vous dit :</p><p class="qt">' + it.q + '</p><p class="lbl">Que lui répondez-vous ?</p>' : '<p class="qt">' + it.q + "</p>") + "</div>";
       if (!tst.shown) h += '<textarea id="tans" rows="4" placeholder="Écrivez votre réponse ici (facultatif)…">' + esc(tst.ans) + '</textarea><button class="btn pri" data-act="tshow">Voir la réponse</button>';
       else h += '<div class="tfb"><p class="lbl">Votre réponse</p><p class="mine">' + (tst.ans ? esc(tst.ans) : '<span class="none">Vous n\'avez rien écrit.</span>') + '</p><p class="lbl">Réponse attendue</p><p class="exp">' + it.a + '</p><p class="lbl">Avez-vous dit l\'essentiel ?</p><div class="row"><button class="btn pri" data-act="tok">J\'avais juste</button><button class="btn" data-act="tmiss">À revoir</button></div></div>';
+      h += '<div class="tnav">' + (tst.i > 0 ? '<button class="btn sm" data-act="tprev">← Précédente</button>' : "") + (tst.deck.length - tst.i > 1 ? '<button class="btn sm" data-act="tskip">Passer cette question</button>' : "") + '<button class="btn sm" data-act="tagain">Recommencer</button><button class="btn sm" data-act="tnew">Changer de sujet</button></div>';
     } else {
       var n = tst.deck.length, pc = tst.ok / n;
       h += '<h2>Résultat</h2><p class="score"><b>' + tst.ok + "</b> / " + n + "</p><p>" + (pc >= 0.8 ? "Très bien : vous maîtrisez ce sujet." : pc >= 0.5 ? "Bon début : relisez les points à revoir, puis refaites le test." : "À consolider : relisez le cours, puis refaites le test.") + "</p>";
       if (tst.miss.length) { h += '<h3>Questions à revoir</h3><ul class="tmiss">' + tst.miss.map(function (x) { return "<li>" + x.q + ' <a href="#/m/' + x.mid + '">' + esc(x.mod) + "</a></li>"; }).join("") + '</ul><div class="row"><button class="btn pri" data-act="trep">Refaire les points à revoir</button><button class="btn" data-act="tnew">Nouveau test</button></div>'; }
-      else h += '<p>Aucune question à revoir : bravo !</p><div class="row"><button class="btn pri" data-act="tnew">Nouveau test</button></div>';
+      else h += '<p>Aucune question à revoir : bravo !</p><div class="row"><button class="btn pri" data-act="tnew">Nouveau test</button></div>'; h += '<div class="tnav"><button class="btn sm" data-act="tprev">← Précédente</button><button class="btn sm" data-act="tagain">Recommencer</button></div>';
     }
     return h;
   }
   function rerenderTest() { main.innerHTML = '<div class="wrap">' + testView() + "</div>"; window.scrollTo(0, 0); var t = $("#tans"); if (t) t.focus(); }
   function tStart(deck) { tst.deck = deck; tst.i = 0; tst.ok = 0; tst.miss = []; tst.shown = false; tst.ans = ""; tst.ph = deck.length ? "ask" : "setup"; }
-  function tRate(ok) { var it = tst.deck[tst.i]; if (ok) tst.ok++; else tst.miss.push(it); tst.i++; tst.shown = false; tst.ans = ""; if (tst.i >= tst.deck.length) tst.ph = "end"; }
+  function tPrev() { if (tst.ph === "end") { tst.ph = "ask"; tst.i = tst.deck.length; } if (tst.i <= 0) return; tst.i--; var it = tst.deck[tst.i]; if (it.r === true) tst.ok--; else if (it.r === false) { var k = tst.miss.indexOf(it); if (k >= 0) tst.miss.splice(k, 1); } it.r = undefined; tst.shown = false; tst.ans = ""; }
+  function tSkip() { if (tst.deck.length - tst.i < 2) return; var it = tst.deck.splice(tst.i, 1)[0]; tst.deck.push(it); tst.shown = false; tst.ans = ""; }
+  function tRate(ok) { var it = tst.deck[tst.i]; it.r = ok; if (ok) tst.ok++; else tst.miss.push(it); tst.i++; tst.shown = false; tst.ans = ""; if (tst.i >= tst.deck.length) tst.ph = "end"; }
 
   function glossaire() {
     return '<h1 class="pg">Glossaire</h1><p class="tag">Les termes essentiels, en langage simple.</p><div class="tw"><table class="t"><thead><tr><th>Terme</th><th>Définition</th></tr></thead><tbody>' + BG.glossary.map(function (g) { return "<tr><td><b>" + esc(g[0]) + "</b></td><td>" + esc(g[1]) + "</td></tr>"; }).join("") + "</tbody></table></div>";
@@ -458,6 +462,9 @@
     else if (a === "tshow") { var ta = $("#tans"); tst.ans = ta ? ta.value.trim() : ""; tst.shown = true; rerenderTest(); }
     else if (a === "tok" || a === "tmiss") { tRate(a === "tok"); rerenderTest(); }
     else if (a === "trep") { tStart(shuffle(tst.miss)); rerenderTest(); }
+    else if (a === "tprev") { tPrev(); rerenderTest(); }
+    else if (a === "tskip") { tSkip(); rerenderTest(); }
+    else if (a === "tagain") { var dk2 = shuffle(bank(tst.mod)); tStart(tst.n ? dk2.slice(0, tst.n) : dk2); rerenderTest(); }
     else if (a === "tnew") { tst.ph = "setup"; rerenderTest(); }
     else if (a === "rev") { state.rev[fc.deck[fc.i].k] = b.getAttribute("data-v"); save(); rerenderRev(); }
   });
