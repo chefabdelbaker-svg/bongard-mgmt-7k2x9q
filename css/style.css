@@ -354,3 +354,12 @@ textarea#tans{width:100%;padding:12px;border:1px solid #ccc;border-radius:10px;f
 .tq .sj{margin:0 0 .6rem;font-size:.95rem;color:var(--muted,#666)}.tq .sj b{color:inherit;font-size:1.05rem}
 .tnav{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.4rem 0 0;padding-top:1rem;border-top:1px solid rgba(128,128,128,.25)}
 .tnav .btn.sm{font-size:.9rem;padding:.5rem .8rem}
+
+.backbar{position:sticky;top:var(--hh,56px);z-index:20;padding:6px 14px;background:rgba(255,255,255,.95);border-bottom:1px solid rgba(128,128,128,.2)}
+.backbar a{display:inline-block;padding:6px 12px;font:700 14px var(--sans);color:var(--red,#c8102e);text-decoration:none;border-radius:8px}
+.backbar a::before{content:"← "}
+html[dir=rtl] .backbar a::before{content:"→ "}
+body.is-cover .backbar{display:none}
+:root{--hh:57px}
+.backbar{top:57px}
+@media(max-width:860px){main:has(.backbar) .vtabs{top:97px}}

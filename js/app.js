@@ -395,8 +395,12 @@
   document.addEventListener("change", function (e) { var f = e.target.getAttribute && e.target.getAttribute("data-filter"); if (f) applyFilter(f); });
 
   /* ---------- routeur ---------- */
+  var navStack = []; try { navStack = JSON.parse(sessionStorage.getItem("bgac.nav") || "[]"); } catch (e) {}
+  function navKey(h) { return (h || "#/").split("/").slice(0, 3).join("/"); }
+  function navTrack(hash) { var k = navKey(hash), n = navStack.length; if (n && navStack[n - 1] === k) return; if (n > 1 && navStack[n - 2] === k) navStack.pop(); else navStack.push(k); if (navStack.length > 40) navStack.shift(); try { sessionStorage.setItem("bgac.nav", JSON.stringify(navStack)); } catch (e) {} }
+  function navPrev() { var n = navStack.length; return n > 1 ? navStack[n - 2] : "#/"; }
   function route() {
-    var hash = location.hash || "#/"; try { if ((hash === "#/" || hash === "#") && !sessionStorage.getItem("bgac.entered")) hash = "#/profil"; } catch (e) {} var parts = hash.replace(/^#\/?/, "").split("/"), name = parts[0] || "home", h = "", curId = null;
+    var hash = location.hash || "#/"; try { if ((hash === "#/" || hash === "#") && !sessionStorage.getItem("bgac.entered")) hash = "#/profil"; } catch (e) {} var parts = hash.replace(/^#\/?/, "").split("/"), name = parts[0] || "home", h = "", curId = null; navTrack(hash);
     if (name === "m" && byId[parts[1]]) { curId = parts[1]; cur = byId[curId]; h = moduleView(cur); state.last = curId; save(); document.title = cur.title + " — Académie Bongard"; }
     else if (name === "parcours") { h = parcours(); name = "parcours"; }
     else if (name === "test") { if (tst.ph === "end") tst.ph = "setup"; h = testView(); }
@@ -421,7 +425,8 @@
     else if (name === "chiffres") h = chiffres();
     else { h = cover(); name = "cover"; }
     if (name !== "m") { document.title = "Académie commerciale Bongard"; cur = null; }
-    main.innerHTML = (name === "m" || name === "cover" || name === "equipements" ? h : '<div class="wrap">' + h + '</div>') + (/^(sources|apropos)$/.test(name) ? '<footer class="f">' + esc(BG.meta.edition) + " · " + esc(BG.meta.disclaimer) + "</footer>" : "");
+    var back = name === "cover" || /^#\/?$/.test(hash) ? "" : '<div class="backbar noprint"><a href="' + navPrev() + '" data-back="1">Retour</a></div>';
+    main.innerHTML = back + (name === "m" || name === "cover" || name === "equipements" ? h : '<div class="wrap">' + h + '</div>') + (/^(sources|apropos)$/.test(name) ? '<footer class="f">' + esc(BG.meta.edition) + " · " + esc(BG.meta.disclaimer) + "</footer>" : "");
     document.body.classList.toggle("is-cover", name === "cover");
     document.body.classList.toggle("is-landing", !!main.querySelector(".landing"));
     (function () { var gp = main.querySelector(".go-pick"), pf = main.querySelector(".profiles.big"); if (!gp || !pf) return; function chk() { if (!document.body.contains(gp)) { window.removeEventListener("scroll", chk); window.removeEventListener("resize", chk); return; } gp.classList.toggle("off", pf.getBoundingClientRect().top < window.innerHeight - 40); } window.addEventListener("scroll", chk, { passive: true }); window.addEventListener("resize", chk); chk(); })();
