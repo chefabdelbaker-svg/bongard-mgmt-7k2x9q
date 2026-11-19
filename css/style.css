@@ -363,3 +363,4 @@ body.is-cover .backbar{display:none}
 :root{--hh:57px}
 .backbar{top:57px}
 @media(max-width:860px){main:has(.backbar) .vtabs{top:97px}}
+.backbar{display:flex;align-items:center;justify-content:space-between}.backbar a.bhome::before{content:"⌂ "}html[dir=rtl] .backbar a.bhome::before{content:"⌂ "}

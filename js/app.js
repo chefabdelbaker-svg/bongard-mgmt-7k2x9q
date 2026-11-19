@@ -308,7 +308,8 @@
     }
     return h;
   }
-  function rerenderTest() { main.innerHTML = '<div class="wrap">' + testView() + "</div>"; window.scrollTo(0, 0); var t = $("#tans"); if (t) t.focus(); }
+  function bbar() { var b = main.querySelector(".backbar"); return b ? b.outerHTML : ""; }
+  function rerenderTest() { main.innerHTML = bbar() + '<div class="wrap">' + testView() + "</div>"; window.scrollTo(0, 0); var t = $("#tans"); if (t) t.focus(); }
   function tStart(deck) { tst.deck = deck; tst.i = 0; tst.ok = 0; tst.miss = []; tst.shown = false; tst.ans = ""; tst.ph = deck.length ? "ask" : "setup"; }
   function tPrev() { if (tst.ph === "end") { tst.ph = "ask"; tst.i = tst.deck.length; } if (tst.i <= 0) return; tst.i--; var it = tst.deck[tst.i]; if (it.r === true) tst.ok--; else if (it.r === false) { var k = tst.miss.indexOf(it); if (k >= 0) tst.miss.splice(k, 1); } it.r = undefined; tst.shown = false; tst.ans = ""; }
   function tSkip() { if (tst.deck.length - tst.i < 2) return; var it = tst.deck.splice(tst.i, 1)[0]; tst.deck.push(it); tst.shown = false; tst.ans = ""; }
@@ -425,7 +426,7 @@
     else if (name === "chiffres") h = chiffres();
     else { h = cover(); name = "cover"; }
     if (name !== "m") { document.title = "Académie commerciale Bongard"; cur = null; }
-    var back = name === "cover" || /^#\/?$/.test(hash) ? "" : '<div class="backbar noprint"><a href="' + navPrev() + '" data-back="1">Retour</a></div>';
+    var back = name === "cover" || /^#\/?$/.test(hash) ? "" : '<div class="backbar noprint"><a href="' + navPrev() + '" data-back="1">Retour</a><a href="#/" class="bhome">Accueil</a></div>';
     main.innerHTML = back + (name === "m" || name === "cover" || name === "equipements" ? h : '<div class="wrap">' + h + '</div>') + (/^(sources|apropos)$/.test(name) ? '<footer class="f">' + esc(BG.meta.edition) + " · " + esc(BG.meta.disclaimer) + "</footer>" : "");
     document.body.classList.toggle("is-cover", name === "cover");
     document.body.classList.toggle("is-landing", !!main.querySelector(".landing"));
@@ -482,7 +483,7 @@
   function lbOpen(g, k) { lb.g = g; lb.k = k; lbShow(); $("#zoom").classList.add("on"); }
   function lbClose() { $("#zoom").classList.remove("on"); }
   function lbStep(d) { var n = IMG[lb.g].length; lb.k = (lb.k + d + n) % n; lbShow(); }
-  function rerenderRev() { var h = (location.hash || "").split("/"); main.innerHTML = "<div class=\"wrap\">" + revision(h[2] && byId[h[2]] ? h[2] : null) + "</div>"; var f = $(".fc"); if (f) f.focus(); }
+  function rerenderRev() { var h = (location.hash || "").split("/"); main.innerHTML = bbar() + "<div class=\"wrap\">" + revision(h[2] && byId[h[2]] ? h[2] : null) + "</div>"; var f = $(".fc"); if (f) f.focus(); }
 
   route();
 })();
